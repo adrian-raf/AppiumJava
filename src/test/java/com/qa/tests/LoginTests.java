@@ -34,47 +34,35 @@ public class LoginTests extends BaseTest {
         Assert.assertEquals(actualErrTxt, expectedErrTxt);
     }
 
-//    @Test
-//    public void validUsernamePassword() throws InterruptedException {
-//        productPage = loginPage.moveToLoginPage()
-//                .enterUsername("validUser")
-//                .enterPassword("validPassword")
-//                .pressLoginBtn();  // Menyimpan return value karena login sukses
-//
-//        String actualProductTitle = productPage.getTitle();
-//        String expectedProductTitle = "PRODUCTS";
-//        System.out.println("product title = " + actualProductTitle);
-//        Assert.assertEquals(actualProductTitle, expectedProductTitle);
-//
-//        Thread.sleep(3000);
-//    }
 
+    @Test
+    public void emptyPasswordField() {
+        loginPage.moveToLoginPage();
 
+        loginPage.enterUsername("validUser");
+        loginPage.enterPassword("");
+        loginPage.pressLoginBtn();
 
-//    @Test
-//    public void emptyPasswordField() {
-//        loginPage.enterUsername("validUser");
-//        loginPage.enterPassword("");
-//        loginPage.pressLoginBtn();
-//
-//        String actualErrTxt = loginPage.getErrTxtEmptyPassword();
-//        String expectedErrTxt = "Enter Password";
-//        Assert.assertEquals(actualErrTxt, expectedErrTxt);
-//
-//    }
-//
-//    @Test
-//    public void validUsernamePassword() throws InterruptedException {
-//        loginPage.enterUsername("validUser");
-//        loginPage.enterPassword("validPassword");
-//        productPage =loginPage.pressLoginBtn();
-//
+        String actualErrTxt = loginPage.getErrTxtEmptyPassword();
+        String expectedErrTxt = "Enter Password";
+        Assert.assertEquals(actualErrTxt, expectedErrTxt);
+
+    }
+
+    @Test
+    public void validUsernamePassword() throws InterruptedException {
+        loginPage.moveToLoginPage();
+
+        loginPage.enterUsername("validUser");
+        loginPage.enterPassword("validPassword");
+       loginPage.pressLoginBtn();
+        Thread.sleep(3000);
+
 //        String actualProductTitle = productPage.getTitle();
 //        String expectedProudctTitle = "PRODUCTS";
 //        System.out.println("product title = " + actualProductTitle);
 //        Assert.assertEquals(actualProductTitle,expectedProudctTitle);
-//
-//        Thread.sleep(3000);
-//
-//    }
+
+
+    }
 }

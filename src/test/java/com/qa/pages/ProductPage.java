@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 
 public class ProductPage extends BaseTest{
-    @AndroidFindBy(accessibility = "App logo and name") private WebElement productTitleTxt;
+    @AndroidFindBy(accessibility = "App logo and name") public WebElement productTitleTxt;
     public String getTitle(){
         return getAttribute(productTitleTxt, "text");
     }
