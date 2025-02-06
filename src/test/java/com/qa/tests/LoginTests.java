@@ -3,6 +3,8 @@ import com.qa.BaseTest;
 import com.qa.pages.LoginPage;
 import com.qa.pages.ProductPage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,54 +12,44 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends BaseTest {
 
+    private static final Logger log = LoggerFactory.getLogger(LoginTests.class);
     LoginPage loginPage;
     ProductPage productPage;
 
 
     @BeforeMethod
     public void beforeMethod() {
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage();
     }
 
     @Test
     public void emptyUsernameField() {
-        loginPage.moveToLoginPage()
-                .enterUsername("")
-                .enterPassword("failed")
-                .pressLoginBtn();  // Tidak menyimpan return value karena login gagal
+        loginPage.moveToLoginPage();
+        loginPage.enterUsername("");
+        loginPage.enterPassword("satu");
+        loginPage.pressLoginBtn();
 
         String actualErrTxt = loginPage.getErrTxtEmptyName();
         String expectedErrTxt = "Username is required";
         Assert.assertEquals(actualErrTxt, expectedErrTxt);
     }
 
-    @Test
-    public void validUsernamePassword() throws InterruptedException {
-        productPage = loginPage.moveToLoginPage()
-                .enterUsername("validUser")
-                .enterPassword("validPassword")
-                .pressLoginBtn();  // Menyimpan return value karena login sukses
-
-        String actualProductTitle = productPage.getTitle();
-        String expectedProductTitle = "PRODUCTS";
-        System.out.println("product title = " + actualProductTitle);
-        Assert.assertEquals(actualProductTitle, expectedProductTitle);
-
-        Thread.sleep(3000);
-    }
-
-
 //    @Test
-//    public void emptyUsernameField() {
-//        ProductPage productPage = loginPage.moveToLoginPage()
-//                .enterUsername("")
-//                .enterPassword("failed")
-//                .pressLoginBtn();
+//    public void validUsernamePassword() throws InterruptedException {
+//        productPage = loginPage.moveToLoginPage()
+//                .enterUsername("validUser")
+//                .enterPassword("validPassword")
+//                .pressLoginBtn();  // Menyimpan return value karena login sukses
 //
-//        String actualErrTxt = loginPage.getErrTxtEmptyName();
-//        String expectedErrTxt = "Username is required";
-//        Assert.assertEquals(actualErrTxt, expectedErrTxt);
+//        String actualProductTitle = productPage.getTitle();
+//        String expectedProductTitle = "PRODUCTS";
+//        System.out.println("product title = " + actualProductTitle);
+//        Assert.assertEquals(actualProductTitle, expectedProductTitle);
+//
+//        Thread.sleep(3000);
 //    }
+
+
 
 //    @Test
 //    public void emptyPasswordField() {

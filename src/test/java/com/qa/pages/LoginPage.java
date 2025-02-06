@@ -1,14 +1,12 @@
 package com.qa.pages;
 import com.qa.BaseTest;
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import io.appium.java_client.AppiumBy;
 import java.time.Duration;
-import java.util.function.Supplier;
+
 
 public class LoginPage extends BaseTest {
 
@@ -29,11 +27,12 @@ public class LoginPage extends BaseTest {
 
     public WebDriverWait wait;
 
-    public LoginPage(WebDriver driver) {
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+    public LoginPage() {
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-//    // Supplier untuk elemen menu
+    // Supplier untuk elemen menu
 //    private final Supplier<WebElement> menuView = () ->
 //            wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("View menu")));
 //
@@ -46,10 +45,12 @@ public class LoginPage extends BaseTest {
         try {
             System.out.println("🔍 Menunggu dan mencari menuView...");
             click(menuView);
+//            menuView.get().click();
             System.out.println("✅ menuView ditemukan dan diklik!");
 
             System.out.println("🔍 Menunggu dan mencari loginMenu...");
             click(loginMenu);
+//            loginMenu.get().click();
             System.out.println("✅ loginMenu ditemukan dan diklik!");
         } catch (Exception e) {
             System.out.println("⚠ Error di moveToLoginPage: " + e.getMessage());

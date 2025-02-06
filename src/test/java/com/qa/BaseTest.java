@@ -1,12 +1,9 @@
 package com.qa;
-
 import com.qa.utils.TestUtils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
@@ -20,10 +17,7 @@ public class BaseTest {
     protected static AppiumDriver driver;
     protected static Properties props;
 
-    public BaseTest() {
-        // Inisialisasi PageFactory jika diperlukan
 
-    }
 
     @BeforeTest
     public void beforeTest() throws Exception {
@@ -41,23 +35,18 @@ public class BaseTest {
 
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability("appium:platformName", "android");
-//            caps.setCapability("appium:platformVersion", "12L");
-            caps.setCapability("appium:deviceName", "Pixel 4");
-            caps.setCapability("appium:avd", "Pixel_4");
-            caps.setCapability("appium:automationName", props.getProperty("androidAutomationName"));
+            caps.setCapability("appium:deviceName", "pixel_4");
+            caps.setCapability("appium:automationName", "UiAutomator2");
             caps.setCapability("appium:udid", "emulator-5554");
-//            caps.setCapability("appium:appPackage", props.getProperty("androidAppPackage"));
-//            caps.setCapability("appium:appActivity", props.getProperty("AndroidAppActivity"));
-            caps.setCapability("appium:App", props.getProperty("androidAppLocation"));
 
-
-            // Timeout untuk emulator dan adb
+            // for launch emulator automatically
             caps.setCapability("appium:avdLaunchTimeout", 180000);
-            caps.setCapability("appium:adbExecTimeout", 60000);
+            caps.setCapability("appium:adbExecTimeout", 60000); // 60 seconds
+            String appUrl = "D:\\appiumJavaUdemy\\mda-2.2.0-25.apk";
+            caps.setCapability("appium:app", appUrl);
 
-            URL url = new URL(props.getProperty("appiumURL"));
+            URL url = new URL("http://127.0.0.1:4723/");
             driver = new AndroidDriver(url, caps);
-//            PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 
 
         } catch (Exception e) {
